@@ -25,7 +25,7 @@ console.log (event);
     var inputCityName = $("#search-value").val().trim();
     //console log City name
     cityName = inputCityName;
-
+    // console.log(cityName);
     // emptyWeather();
     renderWeather();
 
@@ -74,10 +74,11 @@ function loadStored() {
 };
 
 function renderWeather() {
+    console.log('renderWeather');
     //API Key
-    var APIKey = "2e66a7c077bc5ff9dca40619fa9b3909";
+    var APIKey = "04fd169e0aae8bb627a82ef7c675ce19";
     //building the url to query the data
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + APIKey;
     //log query URL
 
     $.ajax({
@@ -86,9 +87,10 @@ function renderWeather() {
     })
         //store retrieved data in object "response"
         .then(function (response) {
-
-            var latitude = response.coord.lat;
-            var longitude = response.coord.lon;
+            dashboardEl.empty()
+            console.log(response)
+            var latitude = response[0].lat;
+            var longitude = response[0].lon;
 
             var oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&exlude=minutely,hourly&appid=" + APIKey;
 
@@ -99,13 +101,13 @@ function renderWeather() {
                 //Store all data in object "weatherResponse"
                 .then(function (weatherResponse) {
                     //console log a more detailed response based on location, weatherReponse
-
-                    currentCityName = response.name;
+                    console.log(weatherResponse);
+                    currentCityName = cityName;
                     var tempK = weatherResponse.current.temp;
                     currentTemperature = ((tempK - 273.15) * 1.80 + 32).toFixed(2);
                     currentHumidity = weatherResponse.current.humidity;
                     currentWindSpeed = weatherResponse.current.wind_speed;
-                    currentIcon = "https://openweathermap.org/img/w/" + weatherResponse.current.weather[0].icon + "png";
+                    currentIcon = "https://openweathermap.org/img/w/" + weatherResponse.current.weather[0].icon + ".png";
                     currentIconAlt = weatherResponse.current.weather[0].description;
                     currentUVI = weatherResponse.current.uvi;
 
