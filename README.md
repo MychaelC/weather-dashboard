@@ -11,7 +11,7 @@ Weather dashboard displays current weather based on a city search providing a fi
 
 # Access and Installation 
 
-To install the run the site locally, initialize with npm install for npm i. In the root directory run npm start.
+To install the run the site locally, initialize with npm install for npm i. In the root directory run npm start. Search for a city to retrieve weather information.
 
 # App Image
 ![screenshot](./assets/Screen%20Shot%202022-10-13%20at%203.45.35%20PM.png)
